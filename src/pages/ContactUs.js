@@ -64,26 +64,26 @@ function ContactUs() {
     return(
         <div className="lp-background min-h-screen ">
             <div className="flex justify-evenly bg-black/75 min-h-screen p-5 items-center">
-                <div className="flex flex-col gap-10">
-                    <div  className="flex-row flex gap-3">
-                        <FiMapPin size={36} color="white" />
-                        <div>
-                            <h1 className="text-white">ADDRESS</h1>
-                            <p className="text-white">71 Pilgrim Avenue Chevy Chase, MD 20815</p>
+                <div className="flex flex-col gap-28">
+                    <div className="flex flex-row gap-3 items-center h-full">
+                        <FiMapPin size={60} color="white" />
+                        <div className="flex flex-col h-full">
+                            <h3 className="text-white items-center h-full">ADDRESS</h3>
+                            <span className="text-white items-center h-full">71 Pilgrim Avenue Chevy Chase, MD 20815</span>
                         </div>
                     </div>
-                    <div className="flex-row flex gap-3">
-                        <FiPhone size={36} color="white" />
+                    <div className="flex-row flex gap-3 align-items-center">
+                        <FiPhone size={60} color="white" />
                         <div>
-                            <h1 className="text-white">PHONE</h1>
-                            <p className="text-white">+713-621-7636</p>
+                            <h3 className="text-white">PHONE</h3>
+                            <span className="text-white">+713-621-7636</span>
                         </div>
                     </div>
-                    <div className="flex-row flex gap-3">
-                        <FiMail size={36} color="white" />
+                    <div className="flex-row flex gap-3 align-items-center">
+                        <FiMail size={60} color="white" />
                         <div>
-                            <h1 className="text-white">EMAIL</h1>
-                            <p className="text-white">thompson@dayrep.com</p>
+                            <h3 className="text-white align-items-center">EMAIL</h3>
+                            <span className="text-white">thompson@dayrep.com</span>
                     </div>
                     </div>
                 </div>
