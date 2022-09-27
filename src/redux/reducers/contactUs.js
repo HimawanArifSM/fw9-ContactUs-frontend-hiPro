@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getContactUs} from '../actions/contactUs'
+import {postContactUs} from '../actions/contactUs'
 
 const initialState={
     errorMsg: null,
@@ -17,16 +17,16 @@ const contactUs = createSlice({
           },
     },
     extraReducers: build => {
-        build.addCase(getContactUs.pending, state => {
+        build.addCase(postContactUs.pending, state => {
             state.errorMsg = null;
             state.successMsg = null;
         })
-        build.addCase(getContactUs.fulfilled, (state, action) => {
+        build.addCase(postContactUs.fulfilled, (state, action) => {
             state.data = action.payload.data;
         })
     }
 })
 
 export default contactUs.reducer;
-export {getContactUs};
+export {postContactUs};
 export const { resetmsg} = contactUs.actions;

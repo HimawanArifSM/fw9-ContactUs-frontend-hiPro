@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { getContactUs } from "../redux/actions/contactUs";
+import { useNavigate } from "react-router-dom";
 
 const contactUsSchema = Yup.object().shape({
     fullname: Yup.string().required('Required'),
@@ -13,22 +14,22 @@ const contactUsSchema = Yup.object().shape({
 })
 
 function ContactUsForm(props){
-console.log(props.values);
+// console.log(props.values);
     return(
         <Form noValidate onSubmit={props.handleSubmit} className="flex flex-col gap-10">
             <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-                <Form.Control isInvalid={!!props.errors.fullname} value={props.values.fullname} onChange={props.handleChange} name="fullname" className="outline-none w-full" placeholder="Name" />
+                <Form.Control isInvalid={!!props.errors.fullname} value={props.values.fullname} onChange={props.handleChange} name="fullname" className=" no-border outline-none w-full" placeholder="Name" />
                 <Form.Control.Feedback type="invalid">{props.errors.fullname}</Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-                <Form.Control isInvalid={!!props.errors.email} value={props.values.email} onChange={props.handleChange} name="email" className="outline-none w-full"placeholder="E-mail" />
+                <Form.Control isInvalid={!!props.errors.email} value={props.values.email} onChange={props.handleChange} name="email" className="no-border outline-none w-full"placeholder="E-mail" />
                 <Form.Control.Feedback type="invalid">{props.errors.email}</Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
             <textarea  onChange={props.handleChange} value={props.values.messages} name="messages" className="w-full h-full outline-none" form="messages" placeholder="Messages" ></textarea>
                 <Form.Control.Feedback type="invalid">{props.errors.messages}</Form.Control.Feedback>
             </Form.Group>
-            <div className="flex justify-center "><Button type='submit' className="bg-green-600 pl-20 pr-20 pt-3 pb-3">SEND</Button></div>
+            <div className="flex justify-center"><Button type='submit' className="btn-green text-center">SEND</Button></div>
         </Form>
     )
 }
@@ -38,6 +39,7 @@ function ContactUs() {
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [messages, setMessages] = useState('');
+    const navigate = useNavigate()
     const onSubmit = (value, e) => {
         console.log(e);
         setFullname(value.fullname)
@@ -47,6 +49,7 @@ function ContactUs() {
         console.log(data);
         dispatch(getContactUs(data));
         e.resetForm({values:{fullname: '', email: '', messages:''}})
+        navigate("/get-all-contactus");
     };
     React.useEffect(() => {
         if (fullname!=null && email!=null && messages!=null){

@@ -16,3 +16,21 @@
     height: auto;
     width: auto;
 }
+.card-list{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: rgb(168, 168, 168);
+}
+.no-border{
+    border: unset !important;
+}
+.btn-green{
+    background-color: rgb(0, 139, 0)!important;
+    width: 200px;
+    padding-top: 12px!important;
+    padding-bottom: 12px!important;
+    text-align: center;
+    justify-content: center;
+}
