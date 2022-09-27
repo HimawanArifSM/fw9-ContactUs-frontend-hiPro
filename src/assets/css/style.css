@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&display=swap');
+
+.lp-background{
+    background: url(../images/mainbg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.input-group{
+    border: unset;
+    border-bottom: 1px solid gray;
+    font-size: 16px;
+    height: auto;
+    width: auto;
+}
