@@ -1,7 +1,13 @@
+import axios from "axios";
 import React from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 function MyVerticallyCenteredModal(props) {
+    console.log(props);
+    // const onSubmit = async()=>{
+    //     await axios.delete(`http://localhost:3300/contact-us/${props.id}`)
+    // }
+
     return (
       <Modal
         {...props}
@@ -26,26 +32,37 @@ function MyVerticallyCenteredModal(props) {
         </Container>
         </Modal.Body>
         <Modal.Footer className='border-none'>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" onClick={()=>props.handleClose()} class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" onClick={()=>{props.handleDelete(props.id); props.handleClose()}} class="btn btn-primary">Delete</button>
         </Modal.Footer>
       </Modal>
     );
   }
   
-  function Modals() {
+  function Modals({id, lim, pages, seacrhed, sorted, sortedBy, seacrhedBy, handleDelete }) {
     const [modalShow, setModalShow] = React.useState(false);
-  
+    const handleClose = () => {
+        setModalShow(false)
+    }
     return (
       <>
         <Button variant="danger" onClick={() => setModalShow(true)}>
         Delete
         </Button>
   
-        <MyVerticallyCenteredModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
+            <MyVerticallyCenteredModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                id={id}
+                lim={lim}
+                pages={pages}
+                seacrhed={seacrhed}
+                sorted={sorted}
+                sortedBy={sortedBy}
+                seacrhedBy={seacrhedBy}
+                handleDelete={handleDelete}
+                handleClose={handleClose}
+            />
       </>
     );
   }

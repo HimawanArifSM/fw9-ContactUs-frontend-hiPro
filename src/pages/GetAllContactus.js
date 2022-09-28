@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
 // import {Container,Row, Col} from "react-bootstrap"
 import ModalDetail from './ModalDetail'
 import ModalEdit from './ModalEdit'
@@ -15,9 +15,20 @@ const GetAllContactUs = () => {
     const [pages, setPages] = React.useState(1)
     const [seacrhed, setSearched] = React.useState('')
     const [sorted, setSorted] = React.useState('DESC')
-    const [sortedBy, setSortedBy] = React.useState('fullname')
+    const [sortedBy, setSortedBy] = React.useState('id')
     const [seacrhedBy, setSearchedBy] = React.useState('fullname')
-    // console.log(data);
+
+    const handleDelete = async(id) => {
+        await axios.delete(`http://localhost:3300/contact-us/${id}`)
+        // page = parseInt(page)
+        const qs = new URLSearchParams({limit:lim, page:pages, keyword:seacrhed, sorting:sorted, sortBy:sortedBy, seacrhBy:seacrhedBy}).toString()
+        axios.get('http://localhost:3300/contact-us?'+qs).then(({data})=>{
+            setData(data?.results)
+            setPageInfo(data.pageInfo)
+            // console.log(data + ' ini res.res');
+        })
+        
+    }
 
     const getAllData = (limit, page, keyword, sorting, sortBy, seacrhBy)=> {
         // limit = parseInt(lim)
@@ -110,6 +121,16 @@ const GetAllContactUs = () => {
                         <div>
                             <ModalDelete
                             id={item.id}
+                            fullname={item.fullname}
+                            email={item.email}
+                            message={item.messages}
+                            lim={lim}
+                            pages={pages}
+                            seacrhed={seacrhed}
+                            sorted={sorted}
+                            sortedBy={sortedBy}
+                            seacrhedBy={seacrhedBy}
+                            handleDelete={handleDelete}
                             />
                         </div>
                     </td>
