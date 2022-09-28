@@ -6,6 +6,7 @@ import ModalDetail from './ModalDetail'
 import ModalEdit from './ModalEdit'
 import ModalDelete from './ModalDelete'
 import { Link } from 'react-router-dom';
+import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 
 const GetAllContactUs = () => {
     const [data, setData] = React.useState([]);
@@ -13,13 +14,16 @@ const GetAllContactUs = () => {
     const [lim, setLim] = React.useState(5)
     const [pages, setPages] = React.useState(1)
     const [seacrhed, setSearched] = React.useState('')
+    const [sorted, setSorted] = React.useState('DESC')
+    const [sortedBy, setSortedBy] = React.useState('fullname')
+    const [seacrhedBy, setSearchedBy] = React.useState('fullname')
     // console.log(data);
 
-    const getAllData = (limit, page, keyword)=> {
+    const getAllData = (limit, page, keyword, sorting, sortBy, seacrhBy)=> {
         // limit = parseInt(lim)
 
         page = parseInt(page)
-        const qs = new URLSearchParams({limit, page, keyword}).toString()
+        const qs = new URLSearchParams({limit, page, keyword, sorting, sortBy, seacrhBy}).toString()
         axios.get('http://localhost:3300/contact-us?'+qs).then(({data})=>{
             setData(data?.results)
             setPageInfo(data.pageInfo)
@@ -34,8 +38,8 @@ const GetAllContactUs = () => {
         // } else{
         //     getAllData(lim, pages, seacrhed)
         // }
-        getAllData(lim, pages, seacrhed)
-    }, [lim, pages, seacrhed])
+        getAllData(lim, pages, seacrhed, sorted, sortedBy, seacrhedBy)
+    }, [lim, pages, seacrhed, sorted, sortedBy, seacrhedBy])
 
     return(
         // <Container fluid>
@@ -53,8 +57,24 @@ const GetAllContactUs = () => {
         // </Row>
         // </Container>
         <div className='d-flex flex-col align-items-center min-vh-100 p-40' fluid>
-            <input name="keyword" onChange={(e)=>{setSearched(e.target.value); setPages(1)}} placeholder="search" className='border-2 p-2 rounded-full placeholder:text-center text-center' />
-            {/* <Button type="submit" >submit</Button> */}
+            <div className='flex flex-row justify-evenly w-full'>
+                <div className='flex gap-6'>
+                    <input name="keyword" onChange={(e)=>{setSearched(e.target.value); setPages(1)}} placeholder="search" className='border-2 p-2 rounded-full placeholder:text-center text-center' />
+                    <select onChange={(e)=>setSearchedBy(e.target.value)}>
+                        <option value="fullname" >fullname</option>
+                        <option value="email" >email</option>
+                    </select>
+                </div>
+                <div className='flex flex-row gap-10'>
+                    <Button onClick={()=>setSorted("ASC")}><FiArrowUp/></Button>
+                    <select onChange={(e)=>setSortedBy(e.target.value)}>
+                        <option value="id" selected>id</option>
+                        <option value="fullname" >fullname</option>
+                        <option value="email" >email</option>
+                    </select>
+                    <Button onClick={()=>setSorted("DESC")}><FiArrowDown/></Button>
+                </div>
+            </div>
             <table class="table">
                 <thead>
                 <tr>
