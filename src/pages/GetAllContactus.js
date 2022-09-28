@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { Button, Col, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 // import {Container,Row, Col} from "react-bootstrap"
 import ModalDetail from './ModalDetail'
 import ModalEdit from './ModalEdit'
@@ -27,7 +27,7 @@ const GetAllContactUs = () => {
             setPageInfo(data.pageInfo)
             // console.log(data + ' ini res.res');
         })
-        
+
     }
 
     const getAllData = (limit, page, keyword, sorting, sortBy, seacrhBy)=> {
