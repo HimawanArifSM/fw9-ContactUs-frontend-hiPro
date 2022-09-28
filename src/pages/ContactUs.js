@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { getContactUs } from "../redux/actions/contactUs";
+import { Link } from "react-router-dom";
 
 const contactUsSchema = Yup.object().shape({
     fullname: Yup.string().required('Required'),
@@ -83,8 +84,9 @@ function ContactUs() {
                         <div>
                             <h3 className="text-white align-items-center">EMAIL</h3>
                             <span className="text-white">thompson@dayrep.com</span>
+                        </div>
                     </div>
-                    </div>
+                    <Link to="/get-all-contactus" className="text-white">Go to data list</Link>
                 </div>
                 <div className="bg-white p-16 flex flex-col gap-10">
                     <h1 className="text-green-600 font-bold flex justify-center">LEAVE US MESSAGES</h1>

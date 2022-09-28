@@ -118,7 +118,7 @@ const GetAllContactUs = () => {
                 </tbody>
             </table>
             <Row className='flex justify-between align-items-center '>
-                <Col><Link to="/">Back to Home</Link></Col>
+                <Col><Link to="/" className='text-black'>Back to Home</Link></Col>
                 <Col className='flex flex-row gap-6 align-items-center'>
                     <Button onClick={()=>setPages(pageInfo.prevPage)} disabled={pageInfo.currentPage<2}>Prev</Button>
                     <div>{pageInfo.currentPage}</div>
