@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 function MyVerticallyCenteredModal(props) {
     return (
@@ -9,11 +9,26 @@ function MyVerticallyCenteredModal(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header className='no-border2' closeButton>
+        <Modal.Header className='border-none' closeButton>
           <Modal.Title  id="contained-modal-title-vcenter">
-            Modal heading
+            Delete Feedback
           </Modal.Title>
         </Modal.Header>
+        <Modal.Body className='border-none'>
+        <Container fluid>
+        <Row>
+        <Col className='card-list'>
+            <div>
+                <h5>Are you sure want to delete this feedback?</h5>
+            </div>
+        </Col>
+        </Row>
+        </Container>
+        </Modal.Body>
+        <Modal.Footer className='border-none'>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </Modal.Footer>
       </Modal>
     );
   }
