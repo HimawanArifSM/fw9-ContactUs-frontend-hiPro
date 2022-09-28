@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { getContactUs } from "../redux/actions/contactUs";
-import { useNavigate } from "react-router-dom";
 
 const contactUsSchema = Yup.object().shape({
     fullname: Yup.string().required('Required'),
