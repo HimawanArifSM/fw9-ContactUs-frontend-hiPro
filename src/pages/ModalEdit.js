@@ -31,8 +31,18 @@ function ContactUsForm(props){
     }
 
 function MyVerticallyCenteredModal(props) {
+    
+    const [name, setName] = React.useState(props.fullname)
+    const [email, setEmail] = React.useState(props.email)
+    const [message, setMessage] = React.useState(props.message)
     const onSubmit = (value, e) => {
-        // console.log(e);
+        // console.log(value);
+        const data = {
+            name: name,
+            email: email,
+            message: message
+        }
+        console.log(data);
         // setFullname(value.fullname)
         // setEmail(value.email)
         // setMessages(value.messages)
@@ -42,6 +52,7 @@ function MyVerticallyCenteredModal(props) {
         // e.resetForm({values:{fullname: '', email: '', messages:''}})
         // navigate("/get-all-contactus");
     };
+
     return (
       <Modal
         {...props}
@@ -62,7 +73,24 @@ function MyVerticallyCenteredModal(props) {
                 <Formik 
                     onSubmit={onSubmit}
                     initialValues={{fullname: '', email: '', messages:''}} validationSchema={contactUsSchema}>
-                    {(props)=><ContactUsForm {...props}/>}
+                    {/* {(props)=><ContactUsForm {...props}/>} */}
+                    {({errors, handleChange, handleSubmit}) => (
+                        <Form noValidate onSubmit={handleSubmit} className="flex flex-col gap-10">
+                        <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
+                            <Form.Control isInvalid={!!errors.fullname} value={name} onChange={(e)=> setName(e.currentTarget.value)} name="fullname" className=" no-border outline-none w-full shadow-none" placeholder="Name" />
+                            <Form.Control.Feedback type="invalid">{errors.fullname}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
+                            <Form.Control isInvalid={!!errors.email}  value={email} onChange={(e)=> setEmail(e.currentTarget.value)} name="email" className="no-border outline-none w-full shadow-none" placeholder="E-mail" />
+                            <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
+                            <Form.Control as="textarea" isInvalid={!!errors.email} value={message} onChange={(e)=> setMessage(e.currentTarget.value)}  name="messages" className="w-full h-full outline-none no-border shadow-none" form="messages" placeholder="Messages" />
+                            <Form.Control.Feedback type="invalid">{errors.messages}</Form.Control.Feedback>
+                        </Form.Group>
+                        <div className="flex justify-center"><Button type='submit' className="btn-green text-center">SEND</Button></div>
+                        </Form>
+                    )}
                 </Formik>
             </div>
         </Col>
@@ -75,7 +103,7 @@ function MyVerticallyCenteredModal(props) {
   
   function Modals({id, fullname, email, message}) {
     const [modalShow, setModalShow] = React.useState(false);
-  
+    
     return (
       <>
         <Button variant="success" onClick={() => setModalShow(true)}>
