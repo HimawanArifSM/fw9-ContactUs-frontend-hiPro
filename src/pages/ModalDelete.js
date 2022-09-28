@@ -54,12 +54,6 @@ function MyVerticallyCenteredModal(props) {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 id={id}
-                lim={lim}
-                pages={pages}
-                seacrhed={seacrhed}
-                sorted={sorted}
-                sortedBy={sortedBy}
-                seacrhedBy={seacrhedBy}
                 handleDelete={handleDelete}
                 handleClose={handleClose}
             />

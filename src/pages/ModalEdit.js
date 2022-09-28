@@ -73,7 +73,7 @@ function MyVerticallyCenteredModal(props) {
     );
   }
   
-  function Modals() {
+  function Modals({id, fullname, email, message}) {
     const [modalShow, setModalShow] = React.useState(false);
   
     return (
@@ -85,6 +85,10 @@ function MyVerticallyCenteredModal(props) {
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          id={id}
+          fullname={fullname}
+          email={email}
+          message={message}
         />
       </>
     );

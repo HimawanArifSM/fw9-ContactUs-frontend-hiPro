@@ -39,7 +39,10 @@ const GetAllContactUs = () => {
             setData(data?.results)
             setPageInfo(data.pageInfo)
             // console.log(data + ' ini res.res');
-        })
+        }).catch(
+            setData([]),
+            setPageInfo({})
+        )
     }
 
     React.useEffect(()=>{
@@ -124,24 +127,26 @@ const GetAllContactUs = () => {
                             fullname={item.fullname}
                             email={item.email}
                             message={item.messages}
-                            lim={lim}
-                            pages={pages}
-                            seacrhed={seacrhed}
-                            sorted={sorted}
-                            sortedBy={sortedBy}
-                            seacrhedBy={seacrhedBy}
                             handleDelete={handleDelete}
                             />
                         </div>
                     </td>
                 </tr>
                 )}
+                {data.length < 1 && 
+                <tr>
+                    <td style={{height: 200}} colspan={5}>
+                        <div className='d-flex justify-content-center align-items-center h-100'>
+                            <b>there is no data</b>
+                        </div>
+                    </td>    
+                </tr>}
                 </tbody>
             </table>
             <Row className='flex justify-between align-items-center '>
                 <Col><Link to="/" className='text-black'>Back to Home</Link></Col>
                 <Col className='flex flex-row gap-6 align-items-center'>
-                    <Button onClick={()=>setPages(pageInfo.prevPage)} disabled={pageInfo.currentPage<2}>Prev</Button>
+                    <Button onClick={()=>setPages(pageInfo.prevPage)} disabled={pageInfo.currentPage<2 || data.length < 1 }>Prev</Button>
                     <div>{pageInfo.currentPage}</div>
                     <Button onClick={()=>setPages(pageInfo.nextPage)} disabled={pageInfo.totalPage === pageInfo.currentPage}>Next</Button>
                     <select onChange={(e)=>setLim(e.target.value)}>
