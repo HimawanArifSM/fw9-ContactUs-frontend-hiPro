@@ -53,7 +53,7 @@ const GetAllContactUs = () => {
         // </Row>
         // </Container>
         <div className='d-flex flex-col align-items-center min-vh-100 p-40' fluid>
-            <input name="keyword" onChange={(e)=>{setSearched(e.target.value); setPages(1)}} placeholder="search" />
+            <input name="keyword" onChange={(e)=>{setSearched(e.target.value); setPages(1)}} placeholder="search" className='border-2 p-2 rounded-full placeholder:text-center text-center' />
             {/* <Button type="submit" >submit</Button> */}
             <table class="table">
                 <thead>
