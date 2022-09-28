@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { getContactUs } from "../redux/actions/contactUs";
+import {  postContactUs } from "../redux/actions/contactUs";
 import { Link } from "react-router-dom";
 
 const contactUsSchema = Yup.object().shape({
@@ -47,7 +47,7 @@ function ContactUs() {
         setMessages(value.messages)
         const data = { fullname: value.fullname, email: value.email, messages: value.messages };
         console.log(data);
-        dispatch(getContactUs(data));
+        dispatch(postContactUs(data));
         e.resetForm({values:{fullname: '', email: '', messages:''}})
         // navigate("/get-all-contactus");
     };
