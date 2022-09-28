@@ -39,7 +39,7 @@ function ContactUs() {
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [messages, setMessages] = useState('');
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const onSubmit = (value, e) => {
         console.log(e);
         setFullname(value.fullname)
@@ -49,7 +49,7 @@ function ContactUs() {
         console.log(data);
         dispatch(getContactUs(data));
         e.resetForm({values:{fullname: '', email: '', messages:''}})
-        navigate("/get-all-contactus");
+        // navigate("/get-all-contactus");
     };
     React.useEffect(() => {
         if (fullname!=null && email!=null && messages!=null){
