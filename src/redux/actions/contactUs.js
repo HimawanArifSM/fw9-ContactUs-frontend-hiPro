@@ -46,3 +46,21 @@ export const getContactUs = createAsyncThunk(
       }
     },
 );
+
+export const deleteContactUs = createAsyncThunk(
+  '/delete-contact-us',
+  async ({id, cb}) => {
+    const results = {};
+    try {
+      const {data} = await http().delete('/contact-us/'+id);
+      // console.log(data);
+      // results.data = data.results;
+      // results.message = data.message;
+      cb()
+      return 0;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);

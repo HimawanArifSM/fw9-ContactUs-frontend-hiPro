@@ -9,26 +9,26 @@ const contactUsSchema = Yup.object().shape({
     messages: Yup.string().required('Required')
 })
 
-function ContactUsForm(props){
-    // console.log(props.values);
-        return(
-            <Form noValidate onSubmit={props.handleSubmit} className="flex flex-col gap-10">
-                <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-                    <Form.Control isInvalid={!!props.errors.fullname} value={props.values.fullname} onChange={props.handleChange} name="fullname" className=" no-border outline-none w-full shadow-none" placeholder="Name" />
-                    <Form.Control.Feedback type="invalid">{props.errors.fullname}</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-                    <Form.Control isInvalid={!!props.errors.email} value={props.values.email} onChange={props.handleChange} name="email" className="no-border outline-none w-full shadow-none" placeholder="E-mail" />
-                    <Form.Control.Feedback type="invalid">{props.errors.email}</Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-                    <Form.Control as="textarea" isInvalid={!!props.errors.email} onChange={props.handleChange} value={props.values.messages} name="messages" className="w-full h-full outline-none no-border shadow-none" form="messages" placeholder="Messages" />
-                    <Form.Control.Feedback type="invalid">{props.errors.messages}</Form.Control.Feedback>
-                </Form.Group>
-                <div className="flex justify-center"><Button type='submit' className="btn-green text-center">SEND</Button></div>
-            </Form>
-        )
-    }
+// function ContactUsForm(props){
+//     // console.log(props.values);
+//         return(
+//             <Form noValidate onSubmit={props.handleSubmit} className="flex flex-col gap-10">
+//                 <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
+//                     <Form.Control isInvalid={!!props.errors.fullname} value={props.values.fullname} onChange={props.handleChange} name="fullname" className=" no-border outline-none w-full shadow-none" placeholder="Name" />
+//                     <Form.Control.Feedback type="invalid">{props.errors.fullname}</Form.Control.Feedback>
+//                 </Form.Group>
+//                 <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
+//                     <Form.Control isInvalid={!!props.errors.email} value={props.values.email} onChange={props.handleChange} name="email" className="no-border outline-none w-full shadow-none" placeholder="E-mail" />
+//                     <Form.Control.Feedback type="invalid">{props.errors.email}</Form.Control.Feedback>
+//                 </Form.Group>
+//                 <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
+//                     <Form.Control as="textarea" isInvalid={!!props.errors.email} onChange={props.handleChange} value={props.values.messages} name="messages" className="w-full h-full outline-none no-border shadow-none" form="messages" placeholder="Messages" />
+//                     <Form.Control.Feedback type="invalid">{props.errors.messages}</Form.Control.Feedback>
+//                 </Form.Group>
+//                 <div className="flex justify-center"><Button type='submit' className="btn-green text-center">SEND</Button></div>
+//             </Form>
+//         )
+//     }
 
 function MyVerticallyCenteredModal(props) {
     

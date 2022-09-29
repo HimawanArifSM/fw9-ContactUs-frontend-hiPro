@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap';
 // import {Container,Row, Col} from "react-bootstrap"
@@ -8,11 +7,9 @@ import ModalDelete from './ModalDelete'
 import { Link } from 'react-router-dom';
 import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { useSelector, useDispatch } from 'react-redux';
-import { getContactUs } from '../redux/actions/contactUs';
+import { deleteContactUs, getContactUs } from '../redux/actions/contactUs';
 
 const GetAllContactUs = () => {
-    // const [data, setData] = React.useState([]);
-    // const [pageInfo, setPageInfo] = React.useState({})
     const [lim, setLim] = React.useState(5)
     const [pages, setPages] = React.useState(1)
     const [seacrhed, setSearched] = React.useState('')
@@ -20,41 +17,24 @@ const GetAllContactUs = () => {
     const [sortedBy, setSortedBy] = React.useState('id')
     const [seacrhedBy, setSearchedBy] = React.useState('fullname')
     const dispatch = useDispatch()
-
-    const handleDelete = async(id) => {
-        await axios.delete(`http://localhost:3300/contact-us/${id}`)
-        // page = parseInt(page)
-        const qs = new URLSearchParams({limit:lim, page:pages, keyword:seacrhed, sorting:sorted, sortBy:sortedBy, seacrhBy:seacrhedBy}).toString()
-        axios.get('http://localhost:3300/contact-us?'+qs).then(({data})=>{
-            // setData(data?.results)
-            // setPageInfo(data.pageInfo)
-            // console.log(data + ' ini res.res');
-        })
-
-    }
-
     const allData = useSelector(state => state.contactUs.alldata);
     const pagesInfo = useSelector(state => state.contactUs.pageInfo);
+    const sucesMsg = useSelector(state => state.contactUs.successMsg)
+    console.log(sucesMsg);
 
+    const handleDelete = (id) => {dispatch(
+        deleteContactUs({
+            id, cb: () => {
+                dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
+            }
+        }))
+    }
+ 
     React.useEffect(()=>{
         dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
     }, [dispatch, lim, pages, seacrhed, sorted, sortedBy, seacrhedBy])
 
     return(
-        // <Container fluid>
-        // <Row>
-        // {data?.map(item=> 
-        // <Col className='col-4 col-md-3 card-list'>
-        //     <div>
-        //         <h5>id : {item.id}</h5>
-        //         <h5>nama : {item.fullname}</h5>
-        //         <h5>email : {item.email}</h5>
-        //         <p>message : {item.messages}</p>
-        //     </div>
-        // </Col>
-        // )}
-        // </Row>
-        // </Container>
         <div className='d-flex flex-col align-items-center min-vh-100 p-40' fluid>
             <div className='flex flex-row justify-evenly w-full'>
                 <div className='flex gap-6'>
