@@ -7,53 +7,38 @@ import ModalEdit from './ModalEdit'
 import ModalDelete from './ModalDelete'
 import { Link } from 'react-router-dom';
 import { FiArrowUp, FiArrowDown } from "react-icons/fi";
+import { useSelector, useDispatch } from 'react-redux';
+import { getContactUs } from '../redux/actions/contactUs';
 
 const GetAllContactUs = () => {
-    const [data, setData] = React.useState([]);
-    const [pageInfo, setPageInfo] = React.useState({})
+    // const [data, setData] = React.useState([]);
+    // const [pageInfo, setPageInfo] = React.useState({})
     const [lim, setLim] = React.useState(5)
     const [pages, setPages] = React.useState(1)
     const [seacrhed, setSearched] = React.useState('')
     const [sorted, setSorted] = React.useState('DESC')
     const [sortedBy, setSortedBy] = React.useState('id')
     const [seacrhedBy, setSearchedBy] = React.useState('fullname')
+    const dispatch = useDispatch()
 
     const handleDelete = async(id) => {
         await axios.delete(`http://localhost:3300/contact-us/${id}`)
         // page = parseInt(page)
         const qs = new URLSearchParams({limit:lim, page:pages, keyword:seacrhed, sorting:sorted, sortBy:sortedBy, seacrhBy:seacrhedBy}).toString()
         axios.get('http://localhost:3300/contact-us?'+qs).then(({data})=>{
-            setData(data?.results)
-            setPageInfo(data.pageInfo)
+            // setData(data?.results)
+            // setPageInfo(data.pageInfo)
             // console.log(data + ' ini res.res');
         })
 
     }
 
-    const getAllData = (limit, page, keyword, sorting, sortBy, seacrhBy)=> {
-        // limit = parseInt(lim)
-
-        page = parseInt(page)
-        const qs = new URLSearchParams({limit, page, keyword, sorting, sortBy, seacrhBy}).toString()
-        axios.get('http://localhost:3300/contact-us?'+qs).then(({data})=>{
-            setData(data?.results)
-            setPageInfo(data.pageInfo)
-            // console.log(data + ' ini res.res');
-        }).catch(
-            setData([]),
-            setPageInfo({})
-        )
-    }
+    const allData = useSelector(state => state.contactUs.alldata);
+    const pagesInfo = useSelector(state => state.contactUs.pageInfo);
 
     React.useEffect(()=>{
-        // if (seacrhed){
-        //     // setPages(1)
-        //     getAllData(lim, pages, seacrhed)
-        // } else{
-        //     getAllData(lim, pages, seacrhed)
-        // }
-        getAllData(lim, pages, seacrhed, sorted, sortedBy, seacrhedBy)
-    }, [lim, pages, seacrhed, sorted, sortedBy, seacrhedBy])
+        dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
+    }, [dispatch, lim, pages, seacrhed, sorted, sortedBy, seacrhedBy])
 
     return(
         // <Container fluid>
@@ -99,7 +84,7 @@ const GetAllContactUs = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {data.map(item=> 
+                {allData.map(item=> 
                     <tr>
                     <th scope="row">{item.id}</th>
                     <td>{item.fullname}</td>
@@ -133,7 +118,7 @@ const GetAllContactUs = () => {
                     </td>
                 </tr>
                 )}
-                {data.length < 1 && 
+                {allData.length < 1 && 
                 <tr>
                     <td style={{height: 200}} colspan={5}>
                         <div className='d-flex justify-content-center align-items-center h-100'>
@@ -146,9 +131,9 @@ const GetAllContactUs = () => {
             <Row className='flex justify-between align-items-center '>
                 <Col><Link to="/" className='text-black'>Back to Home</Link></Col>
                 <Col className='flex flex-row gap-6 align-items-center'>
-                    <Button onClick={()=>setPages(pageInfo.prevPage)} disabled={pageInfo.currentPage<2 || data.length < 1 }>Prev</Button>
-                    <div>{pageInfo.currentPage}</div>
-                    <Button onClick={()=>setPages(pageInfo.nextPage)} disabled={pageInfo.totalPage === pageInfo.currentPage}>Next</Button>
+                    <Button onClick={()=>setPages(pagesInfo.prevPage)} disabled={pagesInfo.currentPage<2 || allData.length < 1 }>Prev</Button>
+                    <div>{pagesInfo.currentPage}</div>
+                    <Button onClick={()=>setPages(pagesInfo.nextPage)} disabled={pagesInfo.totalPage === pagesInfo.currentPage}>Next</Button>
                     <select onChange={(e)=>setLim(e.target.value)}>
                         <option value={5} selected>5</option>
                         <option value={10} >10</option>

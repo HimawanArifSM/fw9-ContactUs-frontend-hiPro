@@ -22,19 +22,27 @@ export const postContactUs = createAsyncThunk(
     },
 );
 
-// export const getContactUs = createAsyncThunk(
-//     '/contact-us',
-//     async request => {
-//       const results = {};
-//       try {
-//         const {data} = await http().get('/contact-us');
-//         // console.log(data);
-//         results.data = data.results;
-//         results.message = data.message;
-//         return results;
-//       } catch (e) {
-//         console.log(e);
-//         return e;
-//       }
-//     },
-// );
+export const getContactUs = createAsyncThunk(
+    '/get-contact-us',
+    async({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}) => {
+      const results = {};
+      try {
+        const page = parseInt(pages) || 1;
+        const limit = parseInt(lim) || 5;
+        const keyword = seacrhed
+        const sorting = sorted
+        const sortBy = sortedBy
+        const seacrhBy = seacrhedBy
+        const qs = new URLSearchParams({limit, page, keyword, sorting, sortBy, seacrhBy}).toString()
+        const {data} = await http().get('/contact-us?'+qs);
+        // console.log(data);
+        results.data = data.results;
+        results.pageInfo = data.pageInfo;
+        results.message = data.message;
+        return results;
+      } catch (e) {
+        console.log(e);
+        return e;
+      }
+    },
+);

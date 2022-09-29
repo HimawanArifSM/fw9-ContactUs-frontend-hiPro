@@ -58,9 +58,9 @@ function ContactUs() {
             setMessages('')
         }
     }, [fullname, email, messages]);
-    console.log(fullname);
-    console.log(email);
-    console.log(messages);
+    // console.log(fullname);
+    // console.log(email);
+    // console.log(messages);
     return(
         <div className="lp-background min-h-screen ">
             <div className="flex justify-evenly bg-black/75 min-h-screen p-5 items-center">
