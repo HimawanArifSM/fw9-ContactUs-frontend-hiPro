@@ -29,7 +29,11 @@ const GetAllContactUs = () => {
             }
         }))
     }
- 
+    
+    const handleEdit = () => {
+        dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
+    }
+
     React.useEffect(()=>{
         dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
     }, [dispatch, lim, pages, seacrhed, sorted, sortedBy, seacrhedBy])
@@ -84,6 +88,13 @@ const GetAllContactUs = () => {
                             fullname={item.fullname}
                             email={item.email}
                             message={item.messages}
+                            lim={lim}
+                            pages={pages}
+                            seacrhed={seacrhed}
+                            sorted={sorted}
+                            sortedBy={sortedBy}
+                            seacrhedBy={seacrhedBy}
+                            handleEdit={handleEdit}
                             />
                         </div>
                         <div>

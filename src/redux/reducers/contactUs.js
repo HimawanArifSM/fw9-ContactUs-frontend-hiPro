@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getContactUs, postContactUs} from '../actions/contactUs'
+import { editContactUs, getContactUs, postContactUs} from '../actions/contactUs'
 
 const initialState={
     errorMsg: null,
@@ -38,13 +38,13 @@ const contactUs = createSlice({
             state.alldata = action.payload.data;
             state.pageInfo = action.payload.pageInfo;
         })
-        // build.addCase(deleteContactUs.pending, state => {
-        //     state.errorMsg = null;
-        //     state.successMsg = null;
-        // })
-        // build.addCase(deleteContactUs.fulfilled, (state, action) => {
-        //     state.successMsg = action.payload.message;
-        // })
+        build.addCase(editContactUs.pending, state => {
+            state.errorMsg = null;
+            state.successMsg = null;
+        })
+        build.addCase(editContactUs.fulfilled, (state, action) => {
+            state.successMsg = action.payload.message;
+        })
     }
 })
 

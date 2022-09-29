@@ -64,3 +64,24 @@ export const deleteContactUs = createAsyncThunk(
     }
   },
 );
+
+export const editContactUs = createAsyncThunk(
+  '/edit-contact-us',
+  async ({id, request}) => {
+    console.log(id+" ini id");
+    console.log(request+' ini req');
+    const results = {};
+    try {
+      const send = qs.stringify(request)
+      console.log(send+' ini send');
+      const {data} = await http().patch('/contact-us/'+id, send);
+      // console.log(data);
+      results.data = data.results;
+      results.message = data.message;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);
