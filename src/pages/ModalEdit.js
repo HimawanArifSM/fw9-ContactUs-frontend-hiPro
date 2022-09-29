@@ -2,8 +2,7 @@ import { Formik } from "formik";
 import React from "react";
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from "react-redux";
-import { editContactUs, getContactUs } from "../redux/actions/contactUs";
+import { useDispatch} from "react-redux";
 import qs from 'qs';
 import { editEmail, editFullname, editId, editMessage } from "../redux/reducers/contactUs";
 const contactUsSchema = Yup.object().shape({

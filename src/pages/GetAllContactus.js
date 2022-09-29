@@ -20,7 +20,6 @@ const GetAllContactUs = () => {
     const dispatch = useDispatch()
     const allData = useSelector(state => state.contactUs.alldata);
     const pagesInfo = useSelector(state => state.contactUs.pageInfo);
-    const sucesMsg = useSelector(state => state.contactUs.successMsg)
     const editFullname = useSelector(state => state.contactUs.fullname)
     const editEmail = useSelector(state => state.contactUs.email)
     const editMessage = useSelector(state => state.contactUs.message)

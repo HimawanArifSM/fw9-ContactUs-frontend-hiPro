@@ -50,7 +50,7 @@ export const getContactUs = createAsyncThunk(
 export const deleteContactUs = createAsyncThunk(
   '/delete-contact-us',
   async ({id, cb}) => {
-    const results = {};
+    // const results = {};
     try {
       const {data} = await http().delete('/contact-us/'+id);
       // console.log(data);
