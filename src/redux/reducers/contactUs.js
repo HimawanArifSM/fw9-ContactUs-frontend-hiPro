@@ -77,6 +77,7 @@ const contactUs = createSlice({
         build.addCase(getContactUs.fulfilled, (state, action) => {
             state.alldata = action.payload.data;
             state.pageInfo = action.payload.pageInfo;
+            state.successMsg = action.payload.message;
         })
         build.addCase(editContactUs.pending, state => {
             state.errorMsg = null;
