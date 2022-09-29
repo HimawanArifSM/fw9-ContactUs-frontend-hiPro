@@ -7,7 +7,8 @@ import ModalDelete from './ModalDelete'
 import { Link } from 'react-router-dom';
 import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteContactUs, getContactUs } from '../redux/actions/contactUs';
+import { deleteContactUs, editContactUs, getContactUs } from '../redux/actions/contactUs';
+import {getLim, getPages, getSeacrhed, getSeacrhedBy, getSorted, getSortedBy} from '../redux/reducers/contactUs'
 
 const GetAllContactUs = () => {
     const [lim, setLim] = React.useState(5)
@@ -20,7 +21,14 @@ const GetAllContactUs = () => {
     const allData = useSelector(state => state.contactUs.alldata);
     const pagesInfo = useSelector(state => state.contactUs.pageInfo);
     const sucesMsg = useSelector(state => state.contactUs.successMsg)
-    console.log(sucesMsg);
+    const editFullname = useSelector(state => state.contactUs.fullname)
+    const editEmail = useSelector(state => state.contactUs.email)
+    const editMessage = useSelector(state => state.contactUs.message)
+    const editId = useSelector(state => state.contactUs.id)
+    console.log(editFullname+ "main");
+    console.log(editEmail+ "main");
+    console.log(editMessage+ "main");
+    console.log(editId+ "main");
 
     const handleDelete = (id) => {dispatch(
         deleteContactUs({
@@ -30,11 +38,20 @@ const GetAllContactUs = () => {
         }))
     }
     
-    const handleEdit = () => {
+    const handleEdit = async() => {
+        const id = editId
+        const request = { fullname: editFullname, email: editEmail, messages: editMessage };
+        await dispatch(editContactUs({id, request}));
         dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
     }
 
     React.useEffect(()=>{
+        dispatch(getLim(lim))
+        dispatch(getPages(pages))
+        dispatch(getSeacrhed(seacrhed))
+        dispatch(getSorted(sorted))
+        dispatch(getSortedBy(sortedBy))
+        dispatch(getSeacrhedBy(seacrhedBy))
         dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
     }, [dispatch, lim, pages, seacrhed, sorted, sortedBy, seacrhedBy])
 
@@ -88,12 +105,6 @@ const GetAllContactUs = () => {
                             fullname={item.fullname}
                             email={item.email}
                             message={item.messages}
-                            lim={lim}
-                            pages={pages}
-                            seacrhed={seacrhed}
-                            sorted={sorted}
-                            sortedBy={sortedBy}
-                            seacrhedBy={seacrhedBy}
                             handleEdit={handleEdit}
                             />
                         </div>

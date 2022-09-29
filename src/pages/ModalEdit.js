@@ -5,52 +5,30 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from "react-redux";
 import { editContactUs, getContactUs } from "../redux/actions/contactUs";
 import qs from 'qs';
+import { editEmail, editFullname, editId, editMessage } from "../redux/reducers/contactUs";
 const contactUsSchema = Yup.object().shape({
     fullname: Yup.string({min:1}).required('Required'),
     email: Yup.string().email("Invalid email format").required('Required'),
     messages: Yup.string().required('Required')
 })
 
-// function ContactUsForm(props){
-//     // console.log(props.values);
-//         return(
-//             <Form noValidate onSubmit={props.handleSubmit} className="flex flex-col gap-10">
-//                 <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-//                     <Form.Control isInvalid={!!props.errors.fullname} value={props.values.fullname} onChange={props.handleChange} name="fullname" className=" no-border outline-none w-full shadow-none" placeholder="Name" />
-//                     <Form.Control.Feedback type="invalid">{props.errors.fullname}</Form.Control.Feedback>
-//                 </Form.Group>
-//                 <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-//                     <Form.Control isInvalid={!!props.errors.email} value={props.values.email} onChange={props.handleChange} name="email" className="no-border outline-none w-full shadow-none" placeholder="E-mail" />
-//                     <Form.Control.Feedback type="invalid">{props.errors.email}</Form.Control.Feedback>
-//                 </Form.Group>
-//                 <Form.Group className="border-b-[1px] border-black pb-2 outline-hidden">
-//                     <Form.Control as="textarea" isInvalid={!!props.errors.email} onChange={props.handleChange} value={props.values.messages} name="messages" className="w-full h-full outline-none no-border shadow-none" form="messages" placeholder="Messages" />
-//                     <Form.Control.Feedback type="invalid">{props.errors.messages}</Form.Control.Feedback>
-//                 </Form.Group>
-//                 <div className="flex justify-center"><Button type='submit' className="btn-green text-center">SEND</Button></div>
-//             </Form>
-//         )
-//     }
-
 function MyVerticallyCenteredModal(props) {
     const dispatch = useDispatch()
     const id = props.id
-    // const successMsg = useSelector(state => state.contactUs.successMsg)
+    const [apply, setApply] = React.useState(true)
     const onSubmit = (value) => {
         console.log(value);
         const request = { fullname: value.fullname, email: value.email, messages: value.messages };
         console.log(qs.stringify(request) + 'ini data di modal');
         console.log(id+" id di modal");
-        dispatch(editContactUs({id, request}));
-        // const lim = props.lim
-        // const pages = props.pages
-        // const seacrhed = props.seacrhed
-        // const sorted = props.sorted
-        // const sortedBy = props.sortedBy
-        // const seacrhedBy = props.seacrhedBy
-        // if(successMsg){
+        dispatch(editId(id))
+        dispatch(editFullname(value.fullname))
+        dispatch(editEmail(value.email))
+        dispatch(editMessage(value.messages))
+        // await dispatch(editContactUs({id, request}));
+        // // if(successMsg){
         //     dispatch(getContactUs({lim, pages, seacrhed, sorted, sortedBy, seacrhedBy}))
-        // }
+        // // }
     }
 
     return (
@@ -89,7 +67,10 @@ function MyVerticallyCenteredModal(props) {
                             <Form.Control as="textarea" isInvalid={!!errors.email} onChange={handleChange} defaultValue={props.message} name="messages" className="w-full h-full outline-none no-border shadow-none" form="messages" placeholder="Messages" />
                             <Form.Control.Feedback type="invalid">{errors.messages}</Form.Control.Feedback>
                         </Form.Group>
-                        <div className="flex justify-center"><Button type="submit" onClick={()=>{props.handleDelete(props.id); props.handleClose()}} className="btn-green text-center">SEND</Button></div>
+                        <div className="flex justify-center gap-5">
+                            <button type="submit" onClick={()=> setApply(false)} class="btn btn-secondary" data-dismiss="modal">apply</button>
+                            <Button onClick={()=>{props.handleEdit(); props.handleClose(); setApply(true)}} disabled={apply} className="btn-green text-center disabled:bg-slate-400">SEND</Button>
+                        </div>
                         </Form>
                     )}
                 </Formik>
@@ -102,7 +83,7 @@ function MyVerticallyCenteredModal(props) {
     );
   }
   
-  function Modals({id, fullname, email, message, lim, pages, seacrhed, sorted, sortedBy, seacrhedBy, handleEdit}) {
+  function Modals({id, fullname, email, message, handleEdit}) {
     const [modalShow, setModalShow] = React.useState(false);
     const handleClose = () => {
         setModalShow(false)
@@ -121,12 +102,6 @@ function MyVerticallyCenteredModal(props) {
           email={email}
           message={message}
           handleClose={handleClose}
-          lim={lim}
-          pages={pages}
-          seacrhed={seacrhed}
-          sorted={sorted}
-          sortedBy={sortedBy}
-          seacrhedBy={seacrhedBy}
           handleEdit={handleEdit}
         />
       </>
