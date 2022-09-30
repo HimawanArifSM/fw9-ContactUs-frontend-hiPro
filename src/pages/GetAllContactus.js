@@ -19,6 +19,7 @@ const GetAllContactUs = () => {
     const [seacrhedBy, setSearchedBy] = React.useState('fullname')
     const dispatch = useDispatch()
     const allData = useSelector(state => state.contactUs.alldata);
+    const msg = useSelector(state => state.contactUs.successMsg)
     const pagesInfo = useSelector(state => state.contactUs.pageInfo);
     const editFullname = useSelector(state => state.contactUs.fullname)
     const editEmail = useSelector(state => state.contactUs.email)
@@ -28,7 +29,7 @@ const GetAllContactUs = () => {
     console.log(editEmail+ "main");
     console.log(editMessage+ "main");
     console.log(editId+ "main");
-
+    console.log(msg+' msg kosong');
     const handleDelete = (id) => {dispatch(
         deleteContactUs({
             id, cb: () => {
@@ -84,7 +85,7 @@ const GetAllContactUs = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {allData.map(item=> 
+                {allData?.map(item=> 
                     <tr>
                     <th scope="row">{item.id}</th>
                     <td>{item.fullname}</td>
@@ -119,7 +120,7 @@ const GetAllContactUs = () => {
                     </td>
                 </tr>
                 )}
-                {allData.length < 1 && 
+                {msg === 'there is no data' && 
                 <tr>
                     <td style={{height: 200}} colspan={5}>
                         <div className='d-flex justify-content-center align-items-center h-100'>
@@ -132,9 +133,9 @@ const GetAllContactUs = () => {
             <Row className='flex justify-between align-items-center '>
                 <Col><Link to="/" className='text-black'>Back to Home</Link></Col>
                 <Col className='flex flex-row gap-6 align-items-center'>
-                    <Button onClick={()=>setPages(pagesInfo.prevPage)} disabled={pagesInfo.currentPage<2 || allData.length < 1 }>Prev</Button>
-                    <div>{pagesInfo.currentPage}</div>
-                    <Button onClick={()=>setPages(pagesInfo.nextPage)} disabled={pagesInfo.totalPage === pagesInfo.currentPage}>Next</Button>
+                    <Button onClick={()=>setPages(pagesInfo?.prevPage)} disabled={pagesInfo?.currentPage<2 || allData?.length < 1 || msg === 'there is no data' }>Prev</Button>
+                    <div>{pagesInfo?.currentPage}</div>
+                    <Button onClick={()=>setPages(pagesInfo?.nextPage)} disabled={pagesInfo?.totalPage === pagesInfo?.currentPage}>Next</Button>
                     <select onChange={(e)=>setLim(e.target.value)}>
                         <option value={5} selected>5</option>
                         <option value={10} >10</option>
