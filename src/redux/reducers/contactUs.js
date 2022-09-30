@@ -25,8 +25,8 @@ const contactUs = createSlice({
     initialState,
     reducers:{
         resetmsg: state => {
-            state.successmsg = null;
-            state.errormsg = null;
+            state.successMsg = null;
+            state.errorMsg = null;
         },
         toggleModal: state => {
             state.deleteModal= !state.deleteModal;
@@ -69,6 +69,7 @@ const contactUs = createSlice({
         })
         build.addCase(postContactUs.fulfilled, (state, action) => {
             state.data = action.payload.data;
+            state.successMsg = action.payload.message
         })
         build.addCase(getContactUs.pending, state => {
             state.errorMsg = null;

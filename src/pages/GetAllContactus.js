@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Row, Table } from 'react-bootstrap';
 import ModalDetail from './ModalDetail'
 import ModalEdit from './ModalEdit'
 import ModalDelete from './ModalDelete'
@@ -50,16 +50,16 @@ const GetAllContactUs = () => {
     }, [dispatch, lim, pages, seacrhed, sorted, sortedBy, seacrhedBy])
 
     return(
-        <div className='d-flex flex-col align-items-center min-vh-100 p-40' fluid>
-            <div className='flex flex-row justify-evenly w-full'>
-                <div className='flex gap-6'>
+        <div className='d-flex flex-col align-items-center min-vh-100 min-w-full p-40' fluid>
+            <Row className='flex flex-row justify-evenly w-full'>
+                <Col className='flex gap-6'>
                     <input name="keyword" onChange={(e)=>{setSearched(e.target.value); setPages(1)}} placeholder="search" className='border-2 p-2 rounded-full placeholder:text-center text-center' />
                     <select onChange={(e)=>setSearchedBy(e.target.value)}>
                         <option value="fullname" >fullname</option>
                         <option value="email" >email</option>
                     </select>
-                </div>
-                <div className='flex flex-row gap-10'>
+                </Col>
+                <Col className='flex flex-row gap-10'>
                     <Button onClick={()=>setSorted("ASC")}><FiArrowUp/></Button>
                     <select onChange={(e)=>setSortedBy(e.target.value)}>
                         <option value="id" selected>id</option>
@@ -67,9 +67,9 @@ const GetAllContactUs = () => {
                         <option value="email" >email</option>
                     </select>
                     <Button onClick={()=>setSorted("DESC")}><FiArrowDown/></Button>
-                </div>
-            </div>
-            <table class="table">
+                </Col>
+            </Row>
+            <Table responsive className="table">
                 <thead>
                 <tr>
                     <th scope="col">id</th>
@@ -80,7 +80,7 @@ const GetAllContactUs = () => {
                 </thead>
                 <tbody>
                 {allData?.map(item=> 
-                    <tr>
+                <tr>
                     <th scope="row">{item.id}</th>
                     <td>{item.fullname}</td>
                     <td>{item.email}</td>
@@ -123,7 +123,7 @@ const GetAllContactUs = () => {
                     </td>    
                 </tr>}
                 </tbody>
-            </table>
+            </Table>
             <Row className='flex justify-between align-items-center '>
                 <Col><Link to="/" className='text-black'>Back to Home</Link></Col>
                 <Col className='flex flex-row gap-6 align-items-center'>

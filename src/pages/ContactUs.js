@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import {FiMapPin,FiMail,FiPhone} from "react-icons/fi"
-import { Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Formik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {  postContactUs } from "../redux/actions/contactUs";
 import { Link } from "react-router-dom";
+import { resetmsg } from "../redux/reducers/contactUs";
 
 const contactUsSchema = Yup.object().shape({
     fullname: Yup.string().min(4, 'Name length minimal 4').required('Required'),
@@ -39,6 +40,7 @@ function ContactUs() {
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [messages, setMessages] = useState('');
+    const successMsg = useSelector(state => state.contactUs.successMsg)
     // const navigate = useNavigate()
     const onSubmit = (value, e) => {
         console.log(e);
@@ -51,6 +53,9 @@ function ContactUs() {
         e.resetForm({values:{fullname: '', email: '', messages:''}})
         // navigate("/get-all-contactus");
     };
+    if(successMsg){
+        setTimeout(()=> dispatch(resetmsg()), 2000)
+    }
     React.useEffect(() => {
         if (fullname!=null && email!=null && messages!=null){
             setFullname('')
@@ -58,12 +63,13 @@ function ContactUs() {
             setMessages('')
         }
     }, [fullname, email, messages]);
-    // console.log(fullname);
-    // console.log(email);
-    // console.log(messages);
     return(
         <div className="lp-background min-h-screen ">
-            <div className="flex justify-evenly bg-black/75 min-h-screen p-5 items-center">
+            <div className="bg-black/75 min-h-screen flex flex-col items-center justify-center">
+            {successMsg? <Alert variant='success'>
+            Successfully send your message!
+            </Alert> : <div className="h-[74px]"></div>}
+            <div className="flex justify-evenly p-5 items-center gap-[20em]">
                 <div className="flex flex-col gap-28">
                     <div className="flex flex-row gap-3 items-center h-full">
                         <FiMapPin size={60} color="white" />
@@ -96,6 +102,7 @@ function ContactUs() {
                     {(props)=><ContactUsForm {...props}/>}
                     </Formik>
                 </div>
+            </div>
             </div>
         </div>
     )
