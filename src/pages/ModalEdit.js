@@ -5,10 +5,11 @@ import * as Yup from 'yup';
 import { useDispatch} from "react-redux";
 import qs from 'qs';
 import { editEmail, editFullname, editId, editMessage } from "../redux/reducers/contactUs";
+
 const contactUsSchema = Yup.object().shape({
-    fullname: Yup.string({min:1}).required('Required'),
-    email: Yup.string().email("Invalid email format").required('Required'),
-    messages: Yup.string().required('Required')
+    fullname: Yup.string().min(4, 'Name length minimal 4').required('Required'),
+    email: Yup.string().email('Invalid email format').required('Required'),
+    messages: Yup.string().max(255, 'maximum message 255 character').required('Required')
 })
 
 function MyVerticallyCenteredModal(props) {

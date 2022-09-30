@@ -8,9 +8,9 @@ import {  postContactUs } from "../redux/actions/contactUs";
 import { Link } from "react-router-dom";
 
 const contactUsSchema = Yup.object().shape({
-    fullname: Yup.string().required('Required'),
+    fullname: Yup.string().min(4, 'Name length minimal 4').required('Required'),
     email: Yup.string().email("Invalid email format").required('Required'),
-    messages: Yup.string().required('Required')
+    messages: Yup.string().max(255, 'Maximum message 255 character').required('Required')
 })
 
 function ContactUsForm(props){
