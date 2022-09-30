@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap';
-// import {Container,Row, Col} from "react-bootstrap"
 import ModalDetail from './ModalDetail'
 import ModalEdit from './ModalEdit'
 import ModalDelete from './ModalDelete'
@@ -25,11 +24,6 @@ const GetAllContactUs = () => {
     const editEmail = useSelector(state => state.contactUs.email)
     const editMessage = useSelector(state => state.contactUs.message)
     const editId = useSelector(state => state.contactUs.id)
-    console.log(editFullname+ "main");
-    console.log(editEmail+ "main");
-    console.log(editMessage+ "main");
-    console.log(editId+ "main");
-    console.log(msg+' msg kosong');
     const handleDelete = (id) => {dispatch(
         deleteContactUs({
             id, cb: () => {
