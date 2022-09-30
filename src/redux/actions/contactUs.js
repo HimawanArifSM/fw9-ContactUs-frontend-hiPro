@@ -53,7 +53,7 @@ export const deleteContactUs = createAsyncThunk(
     // const results = {};
     try {
       const {data} = await http().delete('/contact-us/'+id);
-      // console.log(data);
+      console.log(data);
       // results.data = data.results;
       // results.message = data.message;
       cb()
