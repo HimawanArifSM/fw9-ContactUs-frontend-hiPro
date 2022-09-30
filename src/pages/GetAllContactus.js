@@ -69,7 +69,8 @@ const GetAllContactUs = () => {
                     <Button onClick={()=>setSorted("DESC")}><FiArrowDown/></Button>
                 </Col>
             </Row>
-            <Table responsive className="table">
+            <Table className="table">
+            {/* <Table responsive className="table"> */}
                 <thead>
                 <tr>
                     <th scope="col">id</th>
